@@ -16,9 +16,14 @@
   
   
   
-    <meta name="description" content="date: 2018-07-15 16:39:10tags:">
+    <meta name="description" content="Hadoop-HA(with yarn-HA)启动与关闭顺序
+tags:Hadoop-HA
+启动：
+启动Zookeeper集群 bin/zkServer.sh start
+启动所有 journalnode机器 hadoop-daemons.sh start journalnode
+启动第一个namenode（e.g master机器） hadoop-daemon.sh start namen...">
   
-  <title>Test [ AlanHaze's blog ]</title>
+  <title> [ AlanHaze's blog ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -118,7 +123,7 @@
       
       
   <article id="post">
-    <h1>Test</h1>
+    <h1>No Title</h1>
     <p class="page-title-sub">
       <span id = "post-title-date">Created at 2018-07-15</span>
       
@@ -128,7 +133,33 @@
       
     </p>
     
-    <p>date: 2018-07-15 16:39:10<br>tags:</p>
+    <hr>
+<h1 id="Hadoop-HA-with-yarn-HA-启动与关闭顺序"><a href="#Hadoop-HA-with-yarn-HA-启动与关闭顺序" class="headerlink" title="Hadoop-HA(with yarn-HA)启动与关闭顺序"></a>Hadoop-HA(with yarn-HA)启动与关闭顺序</h1><hr>
+<p>tags:Hadoop-HA</p>
+<h2 id="启动："><a href="#启动：" class="headerlink" title="启动："></a>启动：</h2><ol>
+<li>启动Zookeeper集群 <code>bin/zkServer.sh start</code></li>
+<li>启动所有 journalnode机器 <code>hadoop-daemons.sh start journalnode</code></li>
+<li>启动第一个namenode（e.g master机器） <code>hadoop-daemon.sh start namenode</code></li>
+<li>启动第二个namenode（e.g slave1机器） <code>hadoop-daemon.sh start namenode</code></li>
+<li>启动所有datanode <code>hadoop-daemons.sh start datanode</code></li>
+<li>两台namenode机器启动zkfc，先启动的为active <code>hadoop-daemons.sh start zkfc</code></li>
+<li>启动Resourcemanager，先启动的为active <code>bin/yarn-daemon.sh start resourcemanager</code></li>
+<li>启动Standby Resourcemanager <code>bin/yarn-daemon.sh start resourcemanager</code></li>
+<li>启动所有nodemanager <code>bin/yarn-daemon.sh start nodemanager</code></li>
+<li>启动历史服务器 <code>me-jobhistory-daemon.sh start historyserver</code></li>
+</ol>
+<h2 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h2><ol>
+<li>关闭历史服务器</li>
+<li>停止 Standby Resourcemanager</li>
+<li>停止 Active Resourcemanager</li>
+<li>停止所有 Nodemanager</li>
+<li>逐个停止zkfc</li>
+<li>停止所有Datanode</li>
+<li>关闭Standby namenode</li>
+<li>关闭Active namenode</li>
+<li>停止所有journalnode</li>
+<li>关闭zookeeper</li>
+</ol>
 
   </article>
   <div class="random-toc-area">
@@ -136,7 +167,7 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hadoop-HA-with-yarn-HA-启动与关闭顺序"><span class="toc-text">Hadoop-HA(with yarn-HA)启动与关闭顺序</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#启动："><span class="toc-text">启动：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关闭"><span class="toc-text">关闭</span></a></li></ol></li></ol>
   </div>
 </div>
 
