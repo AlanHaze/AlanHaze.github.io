@@ -1,12 +1,8 @@
 
 
-  
 
 
 
-
-
-  
 
 
 <!doctype html>
@@ -20,9 +16,13 @@
   
   
   
-    <meta name="description" content="">
+    <meta name="description" content="启动：
+启动Zookeeper集群 bin/zkServer.sh start
+启动所有 journalnode机器 hadoop-daemons.sh start journalnode
+启动第一个namenode（e.g master机器） hadoop-daemon.sh start namenode
+启动第二个namenode（e.g slave1机器） hadoop-daemon....">
   
-  <title>归档: 2018 [ AlanHaze's blog ]</title>
+  <title>Hadoop-HA(with yarn-HA)启动与关闭顺序 [ AlanHaze's blog ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -41,6 +41,15 @@
 <body>
 <div class="side-navigate hide-area">
   
+  
+    <div class="item next">
+      <a href="/2018/07/15/Hadoop-HA(with yarn-HA)启动与关闭顺序/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        Hadoop-HA(with yarn-HA)启动与关闭顺序
+      </div>
+    </div>
   
 </div>
 <div id="outer-container" class="hide-area">
@@ -66,7 +75,7 @@
           </li>
         
           
-            <li class="active">
+            <li>
           
             <a href="/archives">Archives</a>
             
@@ -112,132 +121,77 @@
     <div id="content-inner">
       
       
-  <article>
-    
-
-  <div id="recent-posts">
-    <h1>归档
-    
-      <span class="posts-count">
-      共
-      3
+  <article id="post">
+    <h1>Hadoop-HA(with yarn-HA)启动与关闭顺序</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">撰写于 2018-07-15</span>
       
-        文章
+        <span id = "post-title-updated">修改于 2018-07-15</span>
+      
+      
+      
+      <span id = "post-title-tags">
+      标签
+      
+      
+        
+        
+        <a href="/tags/Hadoop-ha/">Hadoop-ha</a>
       
       </span>
-    
-    </h1>
-    
-    
       
-      
-        
-      
-      
+    </p>
     
-      
-      
-      
-    
-      
-      
-      
-    
-    
-    
-      
-      
-        
-        <h3 class="archive-year-title">2018
-        
-          <span class="posts-count">
-          共
-          3
-          
-            文章
-          
-          </span>
-        
-        </h3>
-      
-      <div class="post-title-item">
-  
-  <a href="/2018/07/15/hadoop-ha开启关闭/">
-  
-    Hadoop-HA(with yarn-HA)启动与关闭顺序
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">7-15</span>
-    
-    
-    <span id = "post-title-tags">
-    标签
-    
-    
-      
-      
-      <a href="/tags/Hadoop-ha/">Hadoop-ha</a>
-    
-    </span>
-    
-    
-      <br>
-      
-      
-    
-  </p>
-  
-</div>
-    
-      
-      
-      <div class="post-title-item">
-  
-  <a href="/2018/07/15/Hadoop-HA(with yarn-HA)启动与关闭顺序/">
-  
-    Hadoop-HA(with yarn-HA)启动与关闭顺序
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">7-15</span>
-    
-    
-    
-      <br>
-      
-      
-    
-  </p>
-  
-</div>
-    
-      
-      
-      <div class="post-title-item">
-  
-  <a href="/2018/05/11/hello-world/">
-  
-    Hello World
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">5-11</span>
-    
-    
-    
-      <br>
-      
-      
-    
-  </p>
-  
-</div>
-    
-  </div>
-
+    <h2 id="启动："><a href="#启动：" class="headerlink" title="启动："></a>启动：</h2><ol>
+<li>启动Zookeeper集群 <code>bin/zkServer.sh start</code></li>
+<li>启动所有 journalnode机器 <code>hadoop-daemons.sh start journalnode</code></li>
+<li>启动第一个namenode（e.g master机器） <code>hadoop-daemon.sh start namenode</code></li>
+<li>启动第二个namenode（e.g slave1机器） <code>hadoop-daemon.sh start namenode</code></li>
+<li>启动所有datanode <code>hadoop-daemons.sh start datanode</code></li>
+<li>两台namenode机器启动zkfc，先启动的为active <code>hadoop-daemons.sh start zkfc</code></li>
+<li>启动Resourcemanager，先启动的为active <code>bin/yarn-daemon.sh start resourcemanager</code></li>
+<li>启动Standby Resourcemanager <code>bin/yarn-daemon.sh start resourcemanager</code></li>
+<li>启动所有nodemanager <code>bin/yarn-daemon.sh start nodemanager</code></li>
+<li>启动历史服务器 <code>me-jobhistory-daemon.sh start historyserver</code></li>
+</ol>
+<h2 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h2><ol>
+<li>关闭历史服务器</li>
+<li>停止 Standby Resourcemanager</li>
+<li>停止 Active Resourcemanager</li>
+<li>停止所有 Nodemanager</li>
+<li>逐个停止zkfc</li>
+<li>停止所有Datanode</li>
+<li>关闭Standby namenode</li>
+<li>关闭Active namenode</li>
+<li>停止所有journalnode</li>
+<li>关闭zookeeper</li>
+</ol>
 
   </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <div class="random-toc">
+    <h2>目录</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#启动："><span class="toc-text">启动：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关闭"><span class="toc-text">关闭</span></a></li></ol>
+  </div>
+</div>
+
+  
+<nav id="pagination">
+  
+
+  
+
+  
+    <a href="/2018/07/15/Hadoop-HA(with yarn-HA)启动与关闭顺序/" class="next">下一篇 Hadoop-HA(with yarn-HA)启动与关闭顺序 &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
 
       
       
@@ -355,6 +309,8 @@ var unsplashConfig = {"gravity":"north"};
 var turnoffBackgroundImage = false;
 
 
+
+  turnoffBackgroundImage = true;
 
 
 var backgroundColor = "34495E";
