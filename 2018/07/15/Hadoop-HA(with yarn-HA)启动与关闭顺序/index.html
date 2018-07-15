@@ -16,13 +16,13 @@
   
   
   
-    <meta name="description" content="title:Hadoop-HA(with yarn-HA)启动与关闭顺序启动：
+    <meta name="description" content="启动：
 启动Zookeeper集群 bin/zkServer.sh start
 启动所有 journalnode机器 hadoop-daemons.sh start journalnode
 启动第一个namenode（e.g master机器） hadoop-daemon.sh start namenode
-启动第二个n...">
+启动第二个namenode（e.g slave1机器） hadoop-daemon....">
   
-  <title> [ AlanHaze's blog ]</title>
+  <title>Hadoop-HA(with yarn-HA)启动与关闭顺序 [ AlanHaze's blog ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -122,18 +122,17 @@
       
       
   <article id="post">
-    <h1>No Title</h1>
+    <h1>Hadoop-HA(with yarn-HA)启动与关闭顺序</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2018-07-15</span>
+      <span id = "post-title-date">撰写于 2018-07-15</span>
       
-        <span id = "post-title-updated">Updated at 2018-07-15</span>
+        <span id = "post-title-updated">修改于 2018-07-15</span>
       
       
       
     </p>
     
-    <hr>
-<h2 id="title-Hadoop-HA-with-yarn-HA-启动与关闭顺序"><a href="#title-Hadoop-HA-with-yarn-HA-启动与关闭顺序" class="headerlink" title="title:Hadoop-HA(with yarn-HA)启动与关闭顺序"></a>title:Hadoop-HA(with yarn-HA)启动与关闭顺序</h2><h2 id="启动："><a href="#启动：" class="headerlink" title="启动："></a>启动：</h2><ol>
+    <h2 id="启动："><a href="#启动：" class="headerlink" title="启动："></a>启动：</h2><ol>
 <li>启动Zookeeper集群 <code>bin/zkServer.sh start</code></li>
 <li>启动所有 journalnode机器 <code>hadoop-daemons.sh start journalnode</code></li>
 <li>启动第一个namenode（e.g master机器） <code>hadoop-daemon.sh start namenode</code></li>
@@ -160,11 +159,11 @@
 
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
-    <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#title-Hadoop-HA-with-yarn-HA-启动与关闭顺序"><span class="toc-text">title:Hadoop-HA(with yarn-HA)启动与关闭顺序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动："><span class="toc-text">启动：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关闭"><span class="toc-text">关闭</span></a></li></ol>
+    <h2>目录</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#启动："><span class="toc-text">启动：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关闭"><span class="toc-text">关闭</span></a></li></ol>
   </div>
 </div>
 
@@ -175,7 +174,7 @@
   
 
   
-    <a href="/2018/05/11/hello-world/" class="next">Next post Hello World &rarr;</a>
+    <a href="/2018/05/11/hello-world/" class="next">下一篇 Hello World &rarr;</a>
   
 </nav>
 
