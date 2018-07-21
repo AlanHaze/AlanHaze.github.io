@@ -1,14 +1,8 @@
 
 
-  
 
 
 
-
-  
-
-
-  
 
 
 <!doctype html>
@@ -22,9 +16,16 @@
   
   
   
-    <meta name="description" content="">
+    <meta name="description" content="Hive简介Hive是一个基于Hadoop的开源数据仓库（注意不是数据库），用于存储和处理海量结构化数据，它是Facebook 2008年8月开源的一个数据仓库框架。
+
+使用HQL（类似SQL语言）作为查询接口
+使用HDFS存储数据
+使用Mapreduce计算
+Hive只能处理表结构的数据
+
+其本质是将HQL语言转化为Mapreduce程序。">
   
-  <title>归档: 5/2018: 2018 [ AlanHaze's blog ]</title>
+  <title>Hive概述 [ AlanHaze's blog ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -43,6 +44,15 @@
 <body>
 <div class="side-navigate hide-area">
   
+  
+    <div class="item next">
+      <a href="/2018/07/19/mapreduce详解/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        Mapreduce概述
+      </div>
+    </div>
   
 </div>
 <div id="outer-container" class="hide-area">
@@ -68,7 +78,7 @@
           </li>
         
           
-            <li class="active">
+            <li>
           
             <a href="/archives">Archives</a>
             
@@ -114,70 +124,51 @@
     <div id="content-inner">
       
       
-  <article>
-    
-
-  <div id="recent-posts">
-    <h1>归档
-    
-      <span class="posts-count">
-      共
-      1
+  <article id="post">
+    <h1>Hive概述</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">撰写于 2018-07-21</span>
       
-        文章
-      
-      </span>
-    
-    </h1>
-    
-    
+        <span id = "post-title-updated">修改于 2018-07-21</span>
       
       
-        
       
-      
+    </p>
     
-    
-    
-      
-      
-        
-        <h3 class="archive-year-title">2018
-        
-          <span class="posts-count">
-          共
-          1
-          
-            文章
-          
-          </span>
-        
-        </h3>
-      
-      <div class="post-title-item">
-  
-  <a href="/2018/05/11/hello-world/">
-  
-    Hello World
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">5-11</span>
-    
-    
-    
-      <br>
-      
-      
-    
-  </p>
-  
-</div>
-    
-  </div>
-
+    <h2 id="Hive简介"><a href="#Hive简介" class="headerlink" title="Hive简介"></a>Hive简介</h2><p>Hive是一个基于Hadoop的开源数据仓库（注意不是数据库），用于存储和处理海量结构化数据，它是Facebook 2008年8月开源的一个数据仓库框架。</p>
+<ul>
+<li>使用HQL（类似SQL语言）作为查询接口</li>
+<li>使用HDFS存储数据</li>
+<li>使用Mapreduce计算</li>
+<li>Hive只能处理表结构的数据</li>
+</ul>
+<p>其本质是将HQL语言转化为Mapreduce程序。</p>
 
   </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <div class="random-toc">
+    <h2>目录</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hive简介"><span class="toc-text">Hive简介</span></a></li></ol>
+  </div>
+</div>
+
+  
+<nav id="pagination">
+  
+
+  
+
+  
+    <a href="/2018/07/19/mapreduce详解/" class="next">下一篇 Mapreduce概述 &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
 
       
       
@@ -303,6 +294,8 @@ var unsplashConfig = {"blur":true,"gravity":"north"};
 var turnoffBackgroundImage = false;
 
 
+
+  turnoffBackgroundImage = true;
 
 
 var backgroundColor = "34495E";
