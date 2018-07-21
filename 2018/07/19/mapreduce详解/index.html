@@ -17,7 +17,7 @@
   
   
     <meta name="description" content="MapReduce是一种并行编程模型，可以解决大规模数据的高效处理问题，更可以大幅提高程序性能，实现高效的批处理数据处理。方法是将分布式程序运行在大规模计算机集群上，集群中包括大量廉价服务器，可以并行执行大规模数据处理任务，从而获得海量的计算能力。
-概述MapReduce模型简介
+概述Mapreduce模型简介
 MapReduce将复杂的、运行于大规模集群上的并行计算高度的抽象到两个函数（方法）中：Map和Reduce。在...">
   
   <title>Mapreduce概述 [ AlanHaze's blog ]</title>
@@ -128,12 +128,22 @@ MapReduce将复杂的、运行于大规模集群上的并行计算高度的抽�
       
       
       
+      <span id = "post-title-tags">
+      Tag
+      
+      
+        
+        
+        <a href="/tags/Mapreduce/">Mapreduce</a>
+      
+      </span>
+      
     </p>
     
     <p>MapReduce是一种并行编程模型，可以解决大规模数据的高效处理问题，更可以大幅提高程序性能，实现高效的批处理数据处理。方法是将分布式程序运行在大规模计算机集群上，集群中包括大量廉价服务器，可以并行执行大规模数据处理任务，从而获得海量的计算能力。</p>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="MapReduce模型简介"><a href="#MapReduce模型简介" class="headerlink" title="MapReduce模型简介"></a>MapReduce模型简介</h3><ol>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="Mapreduce模型简介"><a href="#Mapreduce模型简介" class="headerlink" title="Mapreduce模型简介"></a>Mapreduce模型简介</h3><ol>
 <li>MapReduce将复杂的、运行于大规模集群上的并行计算高度的抽象到两个函数（方法）中：Map和Reduce。在MapReduce中，大规模的数据集会被切分成许多独立的小数据块，被多个Map任务处理，称之为“分而治之”的策略。</li>
-<li>MapReduce设计另外的一个重要理念就是“计算向数据靠拢”，而不是“数据向计算靠拢”，因为移动数据需要大量的网络开销，所以，移动计算要比移动数据更加经济。只有有可能，MpaReduce框架就回将Map程序就近在HDFS数据所在的节点运行，节省数据移动开销。</li>
+<li>MapReduce设计另外的一个重要理念就是“计算向数据靠拢”，而不是“数据向计算靠拢”，因为移动数据需要大量的网络开销，所以，移动计算要比移动数据更加经济。只有有可能，Mpareduce框架就回将Map程序就近在HDFS数据所在的节点运行，节省数据移动开销。</li>
 </ol>
 <h3 id="MapReduce的各个执行阶段"><a href="#MapReduce的各个执行阶段" class="headerlink" title="MapReduce的各个执行阶段"></a>MapReduce的各个执行阶段</h3><ol>
 <li>MapReduce框架使用InputFormat模块做Map前的预处理，然后将输入的文件切分为多个InputSpilt，但并没有多文件进行实际切割，只是逻辑上的切割，记录了要处理的数据的位置和长度。</li>
@@ -153,7 +163,7 @@ MapReduce将复杂的、运行于大规模集群上的并行计算高度的抽�
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MapReduce模型简介"><span class="toc-text">MapReduce模型简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MapReduce的各个执行阶段"><span class="toc-text">MapReduce的各个执行阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shuffle过程详解"><span class="toc-text">Shuffle过程详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Map端的Shuffle过程"><span class="toc-text">Map端的Shuffle过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Reduce端的Shuffle过程"><span class="toc-text">Reduce端的Shuffle过程</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mapreduce模型简介"><span class="toc-text">Mapreduce模型简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MapReduce的各个执行阶段"><span class="toc-text">MapReduce的各个执行阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shuffle过程详解"><span class="toc-text">Shuffle过程详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Map端的Shuffle过程"><span class="toc-text">Map端的Shuffle过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Reduce端的Shuffle过程"><span class="toc-text">Reduce端的Shuffle过程</span></a></li></ol></li></ol></li></ol>
   </div>
 </div>
 
