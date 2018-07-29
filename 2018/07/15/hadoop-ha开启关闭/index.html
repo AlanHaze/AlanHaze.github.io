@@ -133,14 +133,14 @@
   <article id="post">
     <h1>Hadoop-ha(with yarn-ha)启动与关闭顺序</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2018-07-15</span>
+      <span id = "post-title-date">撰写于 2018-07-15</span>
       
-        <span id = "post-title-updated">Updated at 2018-07-29</span>
+        <span id = "post-title-updated">修改于 2018-07-29</span>
       
       
       
       <span id = "post-title-tags">
-      Tag
+      标签
       
       
         
@@ -160,7 +160,7 @@
 <li>两台namenode机器启动zkfc，先启动的为active <code>hadoop-daemon.sh start zkfc</code></li>
 <li>启动Resourcemanager，先启动的为active <code>yarn-daemon.sh start resourcemanager</code></li>
 <li>启动Standby Resourcemanager <code>yarn-daemon.sh start resourcemanager</code></li>
-<li>启动所有nodemanager <code>bin/yarn-daemons.sh start nodemanager</code></li>
+<li>启动所有nodemanager <code>yarn-daemons.sh start nodemanager</code></li>
 <li>启动历史服务器 <code>me-jobhistory-daemon.sh start historyserver</code></li>
 </ol>
 <h2 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h2><ol>
@@ -178,10 +178,10 @@
 
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
-    <h2>Table of Content</h2>
+    <h2>目录</h2>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#启动："><span class="toc-text">启动：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关闭"><span class="toc-text">关闭</span></a></li></ol>
   </div>
 </div>
@@ -189,13 +189,13 @@
   
 <nav id="pagination">
   
-    <a href="/2018/07/19/mapreduce详解/" class="prev">&larr; Prev post Mapreduce概述</a>
+    <a href="/2018/07/19/mapreduce详解/" class="prev">&larr; 上一篇 Mapreduce概述</a>
   
 
   
 
   
-    <a href="/2018/05/11/hello-world/" class="next">Next post Hello World &rarr;</a>
+    <a href="/2018/05/11/hello-world/" class="next">下一篇 Hello World &rarr;</a>
   
 </nav>
 
