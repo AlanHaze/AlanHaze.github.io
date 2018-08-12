@@ -16,9 +16,16 @@
   
   
   
-    <meta name="description" content="1.Active Internet connections (only servers)# netstat -ntlp2.">
+    <meta name="description" content="Hive简介Hive是一个基于Hadoop的开源数据仓库（注意不是数据库），用于存储和处理海量结构化数据，它是Facebook 2008年8月开源的一个数据仓库框架。
+
+使用HQL（类似SQL语言）作为查询接口
+使用HDFS存储数据
+使用Mapreduce计算
+Hive只能处理表结构的数据
+
+其本质是将HQL语言转化为Mapreduce程序。">
   
-  <title>Linux常用命令 [ AlanHaze's blog ]</title>
+  <title>Hive概述 [ AlanHaze's blog ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -37,13 +44,22 @@
 <body>
 <div class="side-navigate hide-area">
   
-  
-    <div class="item next">
-      <a href="/2018/07/21/Hive简介/">
+    <div class="item prev">
+      <a href="/2018/08/12/Linux常用命令/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        Hive概述
+        Linux常用命令
+      </div>
+    </div>
+  
+  
+    <div class="item next">
+      <a href="/2018/07/21/wordcount程序/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        WordCount程序
       </div>
     </div>
   
@@ -118,9 +134,9 @@
       
       
   <article id="post">
-    <h1>Linux常用命令</h1>
+    <h1>Hive概述</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2018-08-12</span>
+      <span id = "post-title-date">Created at 2018-07-21</span>
       
         <span id = "post-title-updated">Updated at 2018-08-12</span>
       
@@ -132,13 +148,20 @@
       
         
         
-        <a href="/tags/Linux/">Linux</a>
+        <a href="/tags/Hive/">Hive</a>
       
       </span>
       
     </p>
     
-    <p>1.Active Internet connections (only servers)<code># netstat -ntlp</code><br>2.</p>
+    <h2 id="Hive简介"><a href="#Hive简介" class="headerlink" title="Hive简介"></a>Hive简介</h2><p>Hive是一个基于Hadoop的开源数据仓库（注意不是数据库），用于存储和处理海量结构化数据，它是Facebook 2008年8月开源的一个数据仓库框架。</p>
+<ul>
+<li>使用HQL（类似SQL语言）作为查询接口</li>
+<li>使用HDFS存储数据</li>
+<li>使用Mapreduce计算</li>
+<li>Hive只能处理表结构的数据</li>
+</ul>
+<p>其本质是将HQL语言转化为Mapreduce程序。</p>
 
   </article>
   <div class="random-toc-area">
@@ -146,18 +169,20 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hive简介"><span class="toc-text">Hive简介</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-
+    <a href="/2018/08/12/Linux常用命令/" class="prev">&larr; Prev post Linux常用命令</a>
   
 
   
-    <a href="/2018/07/21/Hive简介/" class="next">Next post Hive概述 &rarr;</a>
+
+  
+    <a href="/2018/07/21/wordcount程序/" class="next">Next post WordCount程序 &rarr;</a>
   
 </nav>
 

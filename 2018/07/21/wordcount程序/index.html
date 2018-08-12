@@ -1,0 +1,352 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="Alan Haze">
+  
+  
+  
+  
+    <meta name="description" content="在进行Mapreduce编程之前，先检查任务是否满足前提条件，即待处理的数据集可以分解成许多小的数据集，而且每一个小数据集都可以完全并行的进行处理。在WordCount程序中，不同的单词之间的频数不存在相关性，彼此独立，所以可以把不同的单词分发给不同的机器进行并行处理，因此可以使用Mapreduce来实现词频的统计操作。
+编写Map处理逻辑12345678910111213public st...">
+  
+  <title>WordCount程序 [ AlanHaze's blog ]</title>
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/css/random.css">
+<link rel="stylesheet" href="/css/vegas.min.css">
+<link rel="stylesheet" href="/css/highlight-railscasts.css">
+<link rel="stylesheet" href="/css/jquery.fancybox.css">
+<link rel="stylesheet" href="/css/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/jquery.fancybox-thumbs.css">
+<link rel="stylesheet" href="/css/plyr.css">
+  
+</head>
+
+<body>
+<div class="side-navigate hide-area">
+  
+    <div class="item prev">
+      <a href="/2018/07/21/Hive简介/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        Hive概述
+      </div>
+    </div>
+  
+  
+    <div class="item next">
+      <a href="/2018/07/19/mapreduce笔记/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        Mapreduce概述
+      </div>
+    </div>
+  
+</div>
+<div id="outer-container" class="hide-area">
+<div id="container">
+  <div id="menu-outer" class="slide-down">
+    <div id="menu-inner">
+      <div id="brand">
+        
+        <a onClick="openUserCard()">
+          <img id="avatar" src="/volvo.jpg"/>
+          <div id="homelink">AlanHaze's blog</div>
+        </a>
+      </div>
+      <div id="menu-list">
+        <ul>
+        
+        
+          
+            <li>
+          
+            <a href="/index.html">Home</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/archives">Archives</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/tags">Tags</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/categories">Categories</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="https://github.com/stiekel/hexo-theme-random">About</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="https://github.com/AlanHaze">Github</a>
+            
+          </li>
+        
+        </ul>
+      </div>
+      <div id="show-menu">
+        <button>Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-outer">
+    <div id="content-inner">
+      
+      
+  <article id="post">
+    <h1>WordCount程序</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2018-07-21</span>
+      
+        <span id = "post-title-updated">Updated at 2018-08-12</span>
+      
+      
+      
+      <span id = "post-title-tags">
+      Tag
+      
+      
+        
+        
+        <a href="/tags/Mapreduce/">Mapreduce</a>
+      
+      </span>
+      
+    </p>
+    
+    <p>  在进行Mapreduce编程之前，先检查任务是否满足前提条件，即待处理的数据集可以分解成许多小的数据集，而且每一个小数据集都可以完全并行的进行处理。在WordCount程序中，不同的单词之间的频数不存在相关性，彼此独立，所以可以把不同的单词分发给不同的机器进行并行处理，因此可以使用Mapreduce来实现词频的统计操作。</p>
+<h2 id="编写Map处理逻辑"><a href="#编写Map处理逻辑" class="headerlink" title="编写Map处理逻辑"></a>编写Map处理逻辑</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public static class TokenizerMapper extends Mapper&lt;LongWritable, Text, Text, IntWritable&gt;&#123;//创建map泛型类继承mapper类，输入数据类型为Long，String，输出类型为Sting，<span class="built_in">integer</span></span><br><span class="line">    private final static IntWritable one = new IntWritable(1);//one表示单词出现一次</span><br><span class="line">    private Text word = new Text();//word存储分段后的单词</span><br><span class="line">    @Override</span><br><span class="line">    public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException &#123;//context是map方法的一个输出方式，通过改写这个变量，可存储值在其中1</span><br><span class="line">        // Hello you</span><br><span class="line">      StringTokenizer itr = new StringTokenizer(value.toString());//通过StringTokenizer类及其自带的方法将value变量（即文本中的每一行）进行拆分，根据标记符（默认为空格）拆分成单个单词</span><br><span class="line">      <span class="keyword">while</span> (itr.hasMoreTokens()) &#123;//是否还有更多标记（默认标记为空格）</span><br><span class="line">        word.set(itr.nextToken());</span><br><span class="line">        context.write(word, one);//将结果存储在其中</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="编写Reduce处理逻辑"><a href="#编写Reduce处理逻辑" class="headerlink" title="编写Reduce处理逻辑"></a>编写Reduce处理逻辑</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public static class IntSumReducer extends Reducer&lt;Text,IntWritable,Text,IntWritable&gt; &#123;// 此处的输入类型应为mapper类的输出类型</span><br><span class="line">    private IntWritable result = new IntWritable();//记录每个单词的出现次数</span><br><span class="line">    //(Hello,&#123;1,1&#125;)</span><br><span class="line">      @Override</span><br><span class="line">    public void reduce(Text key, Iterable&lt;IntWritable&gt; values,Context context) throws IOException, InterruptedException &#123;//注意：此处IntWritable变量经过shuffle处理后变成了Iterable</span><br><span class="line">      int sum = 0;</span><br><span class="line">      <span class="keyword">for</span> (IntWritable val : values) &#123;//将形如&lt;<span class="string">"XXX"</span>,&lt;1,1&gt;&gt;键值对中的value进行迭代，计算出总和</span><br><span class="line">        sum += val.get();</span><br><span class="line">      &#125;</span><br><span class="line">      result.set(sum);//将结果设置到result中</span><br><span class="line">      context.write(key, result);//将总结果存储在其中形如&lt;<span class="string">"XXX"</span>,2&gt;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="编写main方法"><a href="#编写main方法" class="headerlink" title="编写main方法"></a>编写main方法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) throws Exception &#123;//为了让以上两个类协同工作，需要在主函数中通过job类设置运行时的环境变量</span><br><span class="line">    Configuration conf = new Configuration();//初始化程序运行时的配置参数，并将他们存储在args中</span><br><span class="line">    <span class="keyword">if</span> (args.length &lt; 2) &#123;</span><br><span class="line">      System.err.println(<span class="string">"Usage: wordcount &lt;in&gt; [&lt;in&gt;...] &lt;out&gt;"</span>);</span><br><span class="line">      System.exit(2);</span><br><span class="line">    &#125;</span><br><span class="line">    Job job = new Job(conf, <span class="string">"word count"</span>);//设置环境参数</span><br><span class="line">    job.setJarByClass(WordCount.class);//设置整个程序的类名</span><br><span class="line">    job.setMapperClass(TokenizerMapper.class);//添加Mapper类</span><br><span class="line">    //job.setCombinerClass(IntSumReducer.class);</span><br><span class="line">    job.setReducerClass(IntSumReducer.class);//添加Reduce类</span><br><span class="line">   // job.setMapOutputKeyClass();</span><br><span class="line">    //job.setMapOutputValueClass();</span><br><span class="line">    job.setOutputKeyClass(Text.class);//设置Key输出类型</span><br><span class="line">    job.setOutputValueClass(IntWritable.class);//设置Value输出类型</span><br><span class="line">    FileInputFormat.addInputPath(job, new Path(args[0]));//设置输入文件</span><br><span class="line">    FileOutputFormat.setOutputPath(job, new Path(args[1]));//设置输出文件</span><br><span class="line">    System.exit(job.waitForCompletion(<span class="literal">true</span>) ? 0 : 1);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#编写Map处理逻辑"><span class="toc-text">编写Map处理逻辑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编写Reduce处理逻辑"><span class="toc-text">编写Reduce处理逻辑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编写main方法"><span class="toc-text">编写main方法</span></a></li></ol>
+  </div>
+</div>
+
+  
+<nav id="pagination">
+  
+    <a href="/2018/07/21/Hive简介/" class="prev">&larr; Prev post Hive概述</a>
+  
+
+  
+
+  
+    <a href="/2018/07/19/mapreduce笔记/" class="next">Next post Mapreduce概述 &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
+
+      
+      
+    </div>
+  </div>
+
+  <div id="bottom-outer">
+    <div id="bottom-inner">
+      Site by Alan Haze using
+      <a href="http://hexo.io">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random">Random</a>
+      <br>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<div id="user-card">
+  <div class="center-field">
+    <img class="avatar" src="/volvo.jpg">
+    <p id="description"></p>
+    <ul class="social-icon">
+  
+  
+    <li>
+      <a href="https://github.com/AlanHaze">
+        
+          <i class="icon iconfont github">&#xe606;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="https://twitter.com/alanhaze2">
+        
+          <i class="icon iconfont twitter">&#xe600;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="https://www.zhihu.com/people/tang-dun/activities">
+        
+          <i class="icon iconfont zhihu">&#xe60b;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="https://plus.google.com/u/0/107452576753639843741">
+        
+          <i class="icon iconfont google-plus">&#xe603;</i>
+        
+      </a>
+    </li>
+  
+</ul>
+  </div>
+</div>
+
+
+<div id="btn-view">Hide</div>
+
+<script>
+// is trigger analytics / tongji script
+var isIgnoreHost = false;
+
+if(window && window.location && window.location.host) {
+  isIgnoreHost = ["localhost","127.0.0.1"].some(function(address){
+    return 0 === window.location.host.indexOf(address);
+  });
+}
+
+var isTriggerAnalytics = !( true && isIgnoreHost );
+
+</script>
+
+
+
+
+  
+  
+    <script src="/js/jquery-2.2.3.min.js"></script>
+  
+    <script src="/js/vegas.min.js"></script>
+  
+    <script src="/js/random.js"></script>
+  
+    <script src="/js/highlight.pack.js"></script>
+  
+    <script src="/js/jquery.mousewheel.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox-thumbs.js"></script>
+  
+    <script src="/js/plyr.js"></script>
+  
+
+<script>
+
+  // fancybox
+  var backgroundImages = [];
+  
+  $('#post').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox') || $(this).parent().hasClass('fancybox-thumb')) return;
+      var alt = this.alt || this.title;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'post' + i);
+    });
+  });
+  $(".fancybox").fancybox();
+
+var vegasConfig = {"preload­Image":true,"transition":["slideLeft2","slideRight2","flash2"],"timer":true,"delay":5000,"shuffle":true,"count":28};
+var unsplashConfig = {"blur":false,"gravity":"north"};
+// is show background images
+var turnoffBackgroundImage = false;
+
+
+
+  turnoffBackgroundImage = true;
+
+
+var backgroundColor = "34495E";
+
+$(".fancybox-thumb").fancybox({
+  prevEffect: 'none',
+  nextEffect: 'none',
+  helpers: {
+    title: {
+      type: 'outside'
+    },
+    thumbs: {
+      width: 50,
+      height: 50
+    }
+  }
+});
+
+// show video with plyr
+$(".video-container iframe").each(function(i){
+  var url = $(this).attr('src');
+  var id = url.split('/').pop();
+  var plyrContainer = document.createElement('div');
+  plyrContainer.className = 'plyr';
+  var plyrElement = document.createElement('div');
+  plyrElement.dataset.videoId = id;
+  switch(true) {
+    case url.search('youtube.com') >= 0:
+      plyrElement.dataset.type = 'youtube';
+      break;
+    case url.search('vimeo.com') >= 0:
+      plyrElement.dataset.type = 'vimeo';
+      break;
+    default:
+      return;
+  };
+  plyrContainer.appendChild(plyrElement);
+  $(this).parent().html(plyrContainer);
+});
+plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
+</script>
+</body>
+</html>
+
