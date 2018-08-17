@@ -21,11 +21,11 @@
 使用HQL（类似SQL语言）作为查询接口
 使用HDFS存储数据
 使用Mapreduce计算
-Hive只能处理表结构的数据
+Hive只能处理表结构的数据其本质是将HQL语言转化为Mapreduce程序。
 
-其本质是将HQL语言转化为Mapreduce程序。">
+Hive变量的使用外部文件执行时：一个my.sql...">
   
-  <title>Hive概述 [ AlanHaze's blog ]</title>
+  <title>Hive笔记 [ AlanHaze's blog ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -134,7 +134,7 @@ Hive只能处理表结构的数据
       
       
   <article id="post">
-    <h1>Hive概述</h1>
+    <h1>Hive笔记</h1>
     <p class="page-title-sub">
       <span id = "post-title-date">Created at 2018-07-21</span>
       
@@ -159,9 +159,12 @@ Hive只能处理表结构的数据
 <li>使用HQL（类似SQL语言）作为查询接口</li>
 <li>使用HDFS存储数据</li>
 <li>使用Mapreduce计算</li>
-<li>Hive只能处理表结构的数据</li>
+<li>Hive只能处理表结构的数据<br>其本质是将HQL语言转化为Mapreduce程序。</li>
 </ul>
-<p>其本质是将HQL语言转化为Mapreduce程序。</p>
+<h3 id="Hive变量的使用"><a href="#Hive变量的使用" class="headerlink" title="Hive变量的使用"></a>Hive变量的使用</h3><p>外部文件执行时：一个my.sql文件包含如下sql语句：select * fromusers where name=’${name}’,在上述文件中的sql脚本可接受变量name，执行时如下执行：hive-f my.sql –hivevar name=jack；<br>内部执行时:</p>
+<p>如加载本地文件就是将本地文件加载至/user/hive/warehouse/TableName目录下</p>
+<p><code>#</code></p>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>1.查看所选择表格的详细信息<code># desc formatted TableName;</code><br>2.插入本地数据至指定表格<code>#  load data local inpath &#39;/Paths&#39; into table DatabaseName.TableName;</code><br>3.展示所有Hive自带函数<code>#show functions;</code>；显示某个函数的帮助信息<code>#desc function extended FunctionName;</code><br>4.执行外部sql命令<code>#bin/hive -f sql.txt</code>；保存结果至外部文本<code>##bin/hive -f sql.txt &gt;　save.txt</code><br>5.在Hive中也可使用dfs命令，如<code># dfs -ls /</code>；也可执行Linux命令，如<code>#!ls /modules</code><br>6.启动Hive时启用某种属性（仅对该次启动生效）,如<code>#bin/hive --hiveconf hive.cli.print.current.db=true</code>(显示当前数据库名)；也可在进入Hive后设置，如<code>#set hive.cli.print.current.db=false;</code><br>7.定义变量：可在启动Hive时定义，如：<code>#bin/hive --hivevar myname=haze</code>;也可在启动后定义，如：<code>#set key=val</code><br>8.</p>
 
   </article>
   <div class="random-toc-area">
@@ -169,7 +172,7 @@ Hive只能处理表结构的数据
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hive简介"><span class="toc-text">Hive简介</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hive简介"><span class="toc-text">Hive简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hive变量的使用"><span class="toc-text">Hive变量的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用命令"><span class="toc-text">常用命令</span></a></li></ol>
   </div>
 </div>
 

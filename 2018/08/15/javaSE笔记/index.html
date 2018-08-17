@@ -1,0 +1,428 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="Alan Haze">
+  
+  
+  
+  
+    <meta name="description" content="java程序的初始化一般遵循3个原则（优先级依次递减）：1. 静态对象（变量）优先于非静态对象（变量）初始化。2. 父类优先于子类进行初始化。3. 按照成员变量的定义顺序进行初始化。
+
+只有public、abstract或者final可以用来修饰类。
+
+重载和覆盖的区别：重载是一个类里面,函数名相同但参数列表不同的函数.而覆盖是子类类重写了父类的函数。
+
+在父类没有提供无参数的构造函数时，子...">
+  
+  <title>JavaSE笔记 [ AlanHaze's blog ]</title>
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/css/random.css">
+<link rel="stylesheet" href="/css/vegas.min.css">
+<link rel="stylesheet" href="/css/highlight-railscasts.css">
+<link rel="stylesheet" href="/css/jquery.fancybox.css">
+<link rel="stylesheet" href="/css/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/jquery.fancybox-thumbs.css">
+<link rel="stylesheet" href="/css/plyr.css">
+  
+</head>
+
+<body>
+<div class="side-navigate hide-area">
+  
+  
+    <div class="item next">
+      <a href="/2018/08/12/Linux常用命令/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        Linux常用命令
+      </div>
+    </div>
+  
+</div>
+<div id="outer-container" class="hide-area">
+<div id="container">
+  <div id="menu-outer" class="slide-down">
+    <div id="menu-inner">
+      <div id="brand">
+        
+        <a onClick="openUserCard()">
+          <img id="avatar" src="/volvo.jpg"/>
+          <div id="homelink">AlanHaze's blog</div>
+        </a>
+      </div>
+      <div id="menu-list">
+        <ul>
+        
+        
+          
+            <li>
+          
+            <a href="/index.html">Home</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/archives">Archives</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/tags">Tags</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/categories">Categories</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="https://github.com/stiekel/hexo-theme-random">About</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="https://github.com/AlanHaze">Github</a>
+            
+          </li>
+        
+        </ul>
+      </div>
+      <div id="show-menu">
+        <button>Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-outer">
+    <div id="content-inner">
+      
+      
+  <article id="post">
+    <h1>JavaSE笔记</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2018-08-15</span>
+      
+        <span id = "post-title-updated">Updated at 2018-08-15</span>
+      
+      
+      
+      <span id = "post-title-tags">
+      Tag
+      
+      
+        
+        
+        <a href="/tags/JavaSE/">JavaSE</a>
+      
+      </span>
+      
+    </p>
+    
+    <ul>
+<li><p>java程序的初始化一般遵循3个原则（优先级依次递减）：1. 静态对象（变量）优先于非静态对象（变量）初始化。2. 父类优先于子类进行初始化。3. 按照成员变量的定义顺序进行初始化。</p>
+</li>
+<li><p>只有public、abstract或者final可以用来修饰类。</p>
+</li>
+<li><p>重载和覆盖的区别：重载是一个类里面,函数名相同但参数列表不同的函数.而覆盖是子类类重写了父类的函数。</p>
+</li>
+<li><p>在父类没有提供无参数的构造函数时，子类的构造函数必须显式的调用父类构造函数。如果父类提供了无参数构造器则可以不显式的调用父类的构造函数，在这种情况下编译器会默认调用父类提供的无参数构造函数。当有父类时，在实例化对象时会先执行父类的构造函数，然后再执行子类的构造函数。</p>
+</li>
+<li><p>接口与抽象类的区别：</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">抽象类</th>
+<th style="text-align:center">接口</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">默认的方法实现</td>
+<td style="text-align:center">它可以有默认的方法实现</td>
+<td style="text-align:center">接口完全是抽象的。它根本不存在方法的实现</td>
+</tr>
+<tr>
+<td style="text-align:center">实现</td>
+<td style="text-align:center">子类使用extends关键字来继承抽象类。如果子类不是抽象类的话，它需要提供抽象类中所有声明的方法的实现。</td>
+<td style="text-align:center">子类使用关键字implements来实现接口。它需要提供接口中所有声明的方法的实现</td>
+</tr>
+<tr>
+<td style="text-align:center">构造器</td>
+<td style="text-align:center">抽象类可以有构造器</td>
+<td style="text-align:center">接口不能有构造器</td>
+</tr>
+<tr>
+<td style="text-align:center">与正常Java类的区别</td>
+<td style="text-align:center">除了不能实例化抽象类之外，它和普通Java类没有任何区别</td>
+<td style="text-align:center">接口是完全不同的类型</td>
+</tr>
+<tr>
+<td style="text-align:center">访问修饰符</td>
+<td style="text-align:center">抽象方法可以有public、protected和default这些修饰符</td>
+<td style="text-align:center">接口方法默认修饰符是public。不可以使用其它修饰符</td>
+</tr>
+<tr>
+<td style="text-align:center">main方法</td>
+<td style="text-align:center">抽象方法可以有main方法并且可以运行</td>
+<td style="text-align:center">接口没有main方法</td>
+</tr>
+<tr>
+<td style="text-align:center">多继承</td>
+<td style="text-align:center">抽象方法可以继承一个类和实现多个接口</td>
+<td style="text-align:center">接口只可以继承一个或多个其它接口</td>
+</tr>
+<tr>
+<td style="text-align:center">速度</td>
+<td style="text-align:center">它比接口速度要快</td>
+<td style="text-align:center">接口是稍微有点慢的，因为它需要时间去寻找在类中实现的方法</td>
+</tr>
+<tr>
+<td style="text-align:center">添加新方法</td>
+<td style="text-align:center">如果你往抽象类中添加新的方法，你可以给它提供默认的实现。因此你不需要改变你现在的代码。</td>
+<td style="text-align:center">如果你往接口中添加方法，那么你必须改变实现该接口的类。</td>
+</tr>
+</tbody>
+</table>
+<h5 id="什么时候使用抽象类和接口？"><a href="#什么时候使用抽象类和接口？" class="headerlink" title="什么时候使用抽象类和接口？"></a>什么时候使用抽象类和接口？</h5><ol>
+<li>如果拥有一些方法并且想让它们中的一些有默认实现，使用抽象类。</li>
+<li>如果想实现多重继承，只能使用接口。</li>
+<li>如果基本功能在不断改变，那么就需要使用抽象类。如果不断改变基本功能并且使用接口，那么就需要改变所有实现了该接口的类。</li>
+</ol>
+<ul>
+<li><p>如一个接口中没有任何方法，就叫做标识接口，标识接口对于实现它的类没有任何语义上的要求，仅作标识用，java中已存在的标识接口有Cloneable和Serializable等，在使用时可以使用instanceof来判断该实例对象是否实现了一个给定的接口。</p>
+</li>
+<li><p>为了解决C/C++中指针带来的不便，java取消了指针的概念，但这只是在java语言中没有明确提供指针的概念和用法，而实质上每次使用new语句返回的都是一个指针的引用，只是无需开发人员关心而已。</p>
+</li>
+<li><p>Object类中提供一个clone（）方法，该方法可返回一个对象的复制而非该对象的引用，且存在深复制与浅复制之分。</p>
+</li>
+<li><p>反射机制所能提供的功能主要有：获取一个类的所有成员变量和方法；在运行时动态的创建类的对象；在运行时调用对象的方法；获取class类的方法有三种（1）class.forname(“类的路径”)（2）类名.class（3）该类实例.getClass()。所以创建类有四种方法：new语句；反射机制；clone（）方法；反序列化；</p>
+</li>
+<li><p>面向对象的主要特征包括抽象、继承、封装和多态<br>1）抽象：抽象就是忽略一个主题与当前目标无关的方面，主要关注与当前目标有关的方面。抽象包括两个方面：一个是过程抽象；一个是数据抽象。<br>2）继承：对象的一个新类可以从现有的类中派生，这个过程成为类继承。新类继承了原始类的特性，新类称为原始类的派生类（子类），而原始的类成为新类的基类（父类），派生类可以从它的父类中继承方法和实例变量，并且子类可以修改或增加新的方法使之更适合特殊的需要。<br>3）封装：封装是指将客观事物抽象成类，每个类对自身的数据和方法实行保护。类可以可以把自己的数据和方法只让可信任的类和对象进行操作，对不可信的进行信息隐藏。<br>4）多态：多态是指允许不同类的对象对同一消息做出响应。多态性语言具有灵活、抽象、行为共享、代码共享等优势，很好的解决了应用程序函数同名的问题。</p>
+</li>
+</ul>
+
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
+    <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#什么时候使用抽象类和接口？"><span class="toc-text">什么时候使用抽象类和接口？</span></a></li></ol>
+  </div>
+</div>
+
+  
+<nav id="pagination">
+  
+
+  
+
+  
+    <a href="/2018/08/12/Linux常用命令/" class="next">Next post Linux常用命令 &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
+
+      
+      
+    </div>
+  </div>
+
+  <div id="bottom-outer">
+    <div id="bottom-inner">
+      Site by Alan Haze using
+      <a href="http://hexo.io">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random">Random</a>
+      <br>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<div id="user-card">
+  <div class="center-field">
+    <img class="avatar" src="/volvo.jpg">
+    <p id="description"></p>
+    <ul class="social-icon">
+  
+  
+    <li>
+      <a href="https://github.com/AlanHaze">
+        
+          <i class="icon iconfont github">&#xe606;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="https://twitter.com/alanhaze2">
+        
+          <i class="icon iconfont twitter">&#xe600;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="https://www.zhihu.com/people/tang-dun/activities">
+        
+          <i class="icon iconfont zhihu">&#xe60b;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="https://plus.google.com/u/0/107452576753639843741">
+        
+          <i class="icon iconfont google-plus">&#xe603;</i>
+        
+      </a>
+    </li>
+  
+</ul>
+  </div>
+</div>
+
+
+<div id="btn-view">Hide</div>
+
+<script>
+// is trigger analytics / tongji script
+var isIgnoreHost = false;
+
+if(window && window.location && window.location.host) {
+  isIgnoreHost = ["localhost","127.0.0.1"].some(function(address){
+    return 0 === window.location.host.indexOf(address);
+  });
+}
+
+var isTriggerAnalytics = !( true && isIgnoreHost );
+
+</script>
+
+
+
+
+  
+  
+    <script src="/js/jquery-2.2.3.min.js"></script>
+  
+    <script src="/js/vegas.min.js"></script>
+  
+    <script src="/js/random.js"></script>
+  
+    <script src="/js/highlight.pack.js"></script>
+  
+    <script src="/js/jquery.mousewheel.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox-thumbs.js"></script>
+  
+    <script src="/js/plyr.js"></script>
+  
+
+<script>
+
+  // fancybox
+  var backgroundImages = [];
+  
+  $('#post').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox') || $(this).parent().hasClass('fancybox-thumb')) return;
+      var alt = this.alt || this.title;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'post' + i);
+    });
+  });
+  $(".fancybox").fancybox();
+
+var vegasConfig = {"preload­Image":true,"transition":["slideLeft2","slideRight2","flash2"],"timer":true,"delay":5000,"shuffle":true,"count":28};
+var unsplashConfig = {"blur":false,"gravity":"north"};
+// is show background images
+var turnoffBackgroundImage = false;
+
+
+
+  turnoffBackgroundImage = true;
+
+
+var backgroundColor = "34495E";
+
+$(".fancybox-thumb").fancybox({
+  prevEffect: 'none',
+  nextEffect: 'none',
+  helpers: {
+    title: {
+      type: 'outside'
+    },
+    thumbs: {
+      width: 50,
+      height: 50
+    }
+  }
+});
+
+// show video with plyr
+$(".video-container iframe").each(function(i){
+  var url = $(this).attr('src');
+  var id = url.split('/').pop();
+  var plyrContainer = document.createElement('div');
+  plyrContainer.className = 'plyr';
+  var plyrElement = document.createElement('div');
+  plyrElement.dataset.videoId = id;
+  switch(true) {
+    case url.search('youtube.com') >= 0:
+      plyrElement.dataset.type = 'youtube';
+      break;
+    case url.search('vimeo.com') >= 0:
+      plyrElement.dataset.type = 'vimeo';
+      break;
+    default:
+      return;
+  };
+  plyrContainer.appendChild(plyrElement);
+  $(this).parent().html(plyrContainer);
+});
+plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
+</script>
+</body>
+</html>
+
