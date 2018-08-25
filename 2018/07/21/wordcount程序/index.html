@@ -130,14 +130,14 @@
   <article id="post">
     <h1>WordCount程序</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2018-07-21</span>
+      <span id = "post-title-date">撰写于 2018-07-21</span>
       
-        <span id = "post-title-updated">Updated at 2018-08-12</span>
+        <span id = "post-title-updated">修改于 2018-08-12</span>
       
       
       
       <span id = "post-title-tags">
-      Tag
+      标签
       
       
         
@@ -154,10 +154,10 @@
 <h2 id="编写main方法"><a href="#编写main方法" class="headerlink" title="编写main方法"></a>编写main方法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) throws Exception &#123;//为了让以上两个类协同工作，需要在主函数中通过job类设置运行时的环境变量</span><br><span class="line">    Configuration conf = new Configuration();//初始化程序运行时的配置参数，并将他们存储在args中</span><br><span class="line">    <span class="keyword">if</span> (args.length &lt; 2) &#123;</span><br><span class="line">      System.err.println(<span class="string">"Usage: wordcount &lt;in&gt; [&lt;in&gt;...] &lt;out&gt;"</span>);</span><br><span class="line">      System.exit(2);</span><br><span class="line">    &#125;</span><br><span class="line">    Job job = new Job(conf, <span class="string">"word count"</span>);//设置环境参数</span><br><span class="line">    job.setJarByClass(WordCount.class);//设置整个程序的类名</span><br><span class="line">    job.setMapperClass(TokenizerMapper.class);//添加Mapper类</span><br><span class="line">    //job.setCombinerClass(IntSumReducer.class);</span><br><span class="line">    job.setReducerClass(IntSumReducer.class);//添加Reduce类</span><br><span class="line">   // job.setMapOutputKeyClass();</span><br><span class="line">    //job.setMapOutputValueClass();</span><br><span class="line">    job.setOutputKeyClass(Text.class);//设置Key输出类型</span><br><span class="line">    job.setOutputValueClass(IntWritable.class);//设置Value输出类型</span><br><span class="line">    FileInputFormat.addInputPath(job, new Path(args[0]));//设置输入文件</span><br><span class="line">    FileOutputFormat.setOutputPath(job, new Path(args[1]));//设置输出文件</span><br><span class="line">    System.exit(job.waitForCompletion(<span class="literal">true</span>) ? 0 : 1);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
-    <h2>Table of Content</h2>
+    <h2>目录</h2>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#编写Map处理逻辑"><span class="toc-text">编写Map处理逻辑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编写Reduce处理逻辑"><span class="toc-text">编写Reduce处理逻辑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编写main方法"><span class="toc-text">编写main方法</span></a></li></ol>
   </div>
 </div>
@@ -165,13 +165,13 @@
   
 <nav id="pagination">
   
-    <a href="/2018/07/21/Hive简介/" class="prev">&larr; Prev post Hive笔记</a>
+    <a href="/2018/07/21/Hive简介/" class="prev">&larr; 上一篇 Hive笔记</a>
   
 
   
 
   
-    <a href="/2018/07/19/mapreduce笔记/" class="next">Next post Mapreduce概述 &rarr;</a>
+    <a href="/2018/07/19/mapreduce笔记/" class="next">下一篇 Mapreduce概述 &rarr;</a>
   
 </nav>
 
