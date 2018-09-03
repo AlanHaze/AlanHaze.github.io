@@ -127,14 +127,14 @@
   <article id="post">
     <h1>JavaSE笔记</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2018-08-14</span>
+      <span id = "post-title-date">Created at 2018-08-14</span>
       
-        <span id = "post-title-updated">修改于 2018-08-25</span>
+        <span id = "post-title-updated">Updated at 2018-09-03</span>
       
       
       
       <span id = "post-title-tags">
-      标签
+      Tag
       
       
         
@@ -299,10 +299,10 @@
 <li>值传递：在方法的调用中，实参（add(1,2)）会把他的值传递给形参(void add(int a,int b))，形参只是用实参初始化的一个临时的存储单元，因此形参与实参虽然有相同的值，但却有着不同的存储单元，<em>因此对形参的改变不会影响实参的传递</em>；</li>
 <li>引用传递：如果在方法的调用中传递的是对象（也可以看作是对象的内存地址），这时形参与实参的对象指向同一块存储单元，<em>因此对形参的修改就会影响到实参的值</em>；</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">void add (StringBuffer ss1,StringBuffer ss2)&#123;</span><br><span class="line">ss1.append(&quot;world&quot;);</span><br><span class="line">ss2 = ss1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void main(String args[])&#123;</span><br><span class="line">Stringbuffer s1 = new Stringbuffer(&quot;Hello&quot;);</span><br><span class="line">Stringbuffer s1 = new Stringbuffer(&quot;Hello&quot;);&#125;</span><br><span class="line">add(s1,s2)</span><br><span class="line">system.ou.println(s1);</span><br><span class="line">system.ou.println(s2);</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">void add (StringBuffer ss1,StringBuffer ss2)&#123;</span><br><span class="line">ss1.append(<span class="string">"world"</span>);</span><br><span class="line">ss2 = ss1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void main(String args[])&#123;</span><br><span class="line">Stringbuffer s1 = new Stringbuffer(<span class="string">"Hello"</span>);</span><br><span class="line">Stringbuffer s1 = new Stringbuffer(<span class="string">"Hello"</span>);&#125;</span><br><span class="line">add(s1,s2)</span><br><span class="line">system.ou.println(s1);</span><br><span class="line">system.ou.println(s2);</span><br></pre></td></tr></table></figure>
 <p>程序运行结果为：Hello World；Hello；<br>因为在此程序当中，当s1和s2作为实参传递到add中时，虽然是“引用传递”，但是有一要点：“引用也是按值传递的”，他们传递的是s1和s2的两个地址的<em>值</em>，在调用方法append（）时，会修改ss1所指向的字符串的值（指向“Hello World的地址”）因此会修改调用者的s1的值，但在执行ss2 = ss1时，只修改ss2的值而对s2并无影响，因此s2的值在调用前后不变,过程如下图：</p>
 <p><img src="http://wx4.sinaimg.cn/large/ace57effgy1fuih40lwh9j20rx0gc1kx.jpg" alt="不变量的引用传递"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//第一个例子：基本类型</span><br><span class="line">void foo(int value) &#123;</span><br><span class="line">    value = 100;</span><br><span class="line">&#125;</span><br><span class="line">foo(num); // num 没有被改变</span><br><span class="line"></span><br><span class="line">//第二个例子：没有提供改变自身方法的引用类型</span><br><span class="line">void foo(String text) &#123;</span><br><span class="line">    text = &quot;windows&quot;;</span><br><span class="line">&#125;</span><br><span class="line">foo(str); // str 也没有被改变</span><br><span class="line"></span><br><span class="line">//第三个例子：提供了改变自身方法的引用类型</span><br><span class="line">StringBuilder sb = new StringBuilder(&quot;iphone&quot;);</span><br><span class="line">void foo(StringBuilder builder) &#123;</span><br><span class="line">    builder.append(&quot;4&quot;);</span><br><span class="line">&#125;</span><br><span class="line">foo(sb); // sb 被改变了，变成了&quot;iphone4&quot;。</span><br><span class="line"></span><br><span class="line">//第四个例子：提供了改变自身方法的引用类型，但是不使用，而是使用赋值运算符。</span><br><span class="line">StringBuilder sb = new StringBuilder(&quot;iphone&quot;);</span><br><span class="line">void foo(StringBuilder builder) &#123;</span><br><span class="line">    builder = new StringBuilder(&quot;ipad&quot;);</span><br><span class="line">&#125;</span><br><span class="line">foo(sb); // sb 没有被改变，还是 &quot;iphone&quot;。只要使用new关键字就会在堆中创建一个新的对象</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//第一个例子：基本类型</span><br><span class="line">void foo(int value) &#123;</span><br><span class="line">    value = 100;</span><br><span class="line">&#125;</span><br><span class="line">foo(num); // num 没有被改变</span><br><span class="line"></span><br><span class="line">//第二个例子：没有提供改变自身方法的引用类型</span><br><span class="line">void foo(String text) &#123;</span><br><span class="line">    text = <span class="string">"windows"</span>;</span><br><span class="line">&#125;</span><br><span class="line">foo(str); // str 也没有被改变</span><br><span class="line"></span><br><span class="line">//第三个例子：提供了改变自身方法的引用类型</span><br><span class="line">StringBuilder sb = new StringBuilder(<span class="string">"iphone"</span>);</span><br><span class="line">void foo(StringBuilder builder) &#123;</span><br><span class="line">    builder.append(<span class="string">"4"</span>);</span><br><span class="line">&#125;</span><br><span class="line">foo(sb); // sb 被改变了，变成了<span class="string">"iphone4"</span>。</span><br><span class="line"></span><br><span class="line">//第四个例子：提供了改变自身方法的引用类型，但是不使用，而是使用赋值运算符。</span><br><span class="line">StringBuilder sb = new StringBuilder(<span class="string">"iphone"</span>);</span><br><span class="line">void foo(StringBuilder builder) &#123;</span><br><span class="line">    builder = new StringBuilder(<span class="string">"ipad"</span>);</span><br><span class="line">&#125;</span><br><span class="line">foo(sb); // sb 没有被改变，还是 <span class="string">"iphone"</span>。只要使用new关键字就会在堆中创建一个新的对象</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>强制类型转换时，需注意：java在涉及byte，short和char类型运算时，首先会把这些类型的变量值强制转换为int类型，然后对int类型的值进行计算，最后得到的也是int类型的结果，例如语句short s1 = 1；s1 = s1 + 1；由于在运行时首先会将s1转换为int类型，因此s1 + 1的结果为int类型，这样编译器会报错，所以正确的写法应该是short s1 = 1；s1 = （short）（s1 + 1）；但是如果使用+=就可以通过编译（+=为java语言中规定的运算法，java编译器会对其特殊处理）；</p>
 </li>
@@ -321,18 +321,82 @@
 <ul>
 <li><p>数组是一个单独的类型；</p>
 </li>
-<li><p>Set是采用equals（）方法判断两个对象是否相同：</p>
+<li><p>Set是采用equals（）方法判断两个对象是否相同；</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class TestSet &#123;  </span><br><span class="line">    public static void main(String[] args) &#123;  </span><br><span class="line">        Set books = new HashSet();  </span><br><span class="line">        books.add(new String(&quot;张大三&quot;));  </span><br><span class="line">        System.out.println(books);//打印结果：[张大三]  </span><br><span class="line">        //再次添加一个字符串对象  </span><br><span class="line">        //因为这连个字符串对象通过equals方法比较相等，所以添加失败，返回false  </span><br><span class="line">        boolean result = books.add(new String(&quot;张大三&quot;));  </span><br><span class="line">        //下面看到集合中只有一个元素  </span><br><span class="line">        System.out.println(result);  </span><br><span class="line">        System.out.println(books);//打印结果：[张大三]  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class TestSet &#123;  </span><br><span class="line">    public static void main(String[] args) &#123;  </span><br><span class="line">        Set books = new HashSet();  </span><br><span class="line">        books.add(new String(<span class="string">"张大三"</span>));  </span><br><span class="line">        System.out.println(books);//打印结果：[张大三]  </span><br><span class="line">        //再次添加一个字符串对象  </span><br><span class="line">        //因为这连个字符串对象通过equals方法比较相等，所以添加失败，返回<span class="literal">false</span>  </span><br><span class="line">        boolean result = books.add(new String(<span class="string">"张大三"</span>));  </span><br><span class="line">        //下面看到集合中只有一个元素  </span><br><span class="line">        System.out.println(result);  </span><br><span class="line">        System.out.println(books);//打印结果：[张大三]  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="String、StringBuffer、StringBuilder和StringTokenized的区别"><a href="#String、StringBuffer、StringBuilder和StringTokenized的区别" class="headerlink" title="String、StringBuffer、StringBuilder和StringTokenized的区别"></a>String、StringBuffer、StringBuilder和StringTokenized的区别</h4><p>java语言中有四个类可以对字符串进行操作，他们分别是Character、String、StringBuffer和StringTokenized，其中Character是用于单个字符串的操作，String用于字符串的操作（不可变类），StringBuffer也是用于字符串操作，但是属于可变类。</p>
+<ol>
+<li>当一个字符串会被<em>经常修改</em>时，使用StringBuffer，如做常量就使用String。如要修改一个修改字符串原理如下：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="string">"Hello"</span>;</span><br><span class="line">s += <span class="string">"World"</span>;</span><br></pre></td></tr></table></figure>
+<p>以上代码等价于：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb = new StringBuffer(s);</span><br><span class="line">s.append(<span class="string">"World"</span>);</span><br><span class="line">s = sb.toString();//可见影响效率</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>StringBuilder不是线程安全的，如果只在单线程中使用，StringBuilder的效率会高一些；如当前有多个线程访问时，最好使用线程安全的StringBuffer。一般来说，如果要操作的的字符串数据量比较小，应优先使用String类；如要在单线程下操作大量数据应优先使用StringBuilder类；在多线程环境下操作大量数据应考虑使用StringBuffer类；</li>
+<li>StringTokenizer类可以讲字符串进行分割，默认是以空格作为分割符，分割成单一的单词:对象名.hasMoreToken()；</li>
+</ol>
+<ul>
+<li><p>java语言中，数组拥有自己的属性（例如length属性），也有方法可以被调用（例如clone方法）。由于对象的特点是封装了一些数据，同时提供了一些属性和方法，从这个角度来说，数组是对象。每个数组都有其对应的类型（例如int类型数组,int类型二维数组,String类型数组）；</p>
+</li>
+<li><p>数组提供了length属性来获取数组的长度；String提供了length（）方法来计算字符串的长度；</p>
+</li>
+<li><p>size（）方法是查看泛型集合中有多少元素的方法；</p>
+</li>
+<li><p>try-catch-finally语句中如有return的情况，finally代码块会在return之前执行。因为finally块的作用就是无论发生什么情况都会执行的代码，由于程序执行return就意味着结束当前方法并跳出这个方法体，因此任何语句的执行都要在return之前呗执行（除非碰到exit方法）。此外，如果try-catch或者catch-finall中都有return，那么finally中的return会覆盖别处的return语句，最终返回到调用者那里的是finally中的return的值。<br><em>Tips：</em><br>由于在一个方法内部定义的变量存储在栈中，当这个方法结束后，其对应的栈就会被回收，此时在其方法体中定义的变量将不复存在，<em>因此执行return时会首先将返回值存储在一个指定位置，其次再去执行finally块，然后再返回。</em>因此，对于基本类型的数据，在finally块中改变return的值对返回值没有任何影响，而对引用类型的数据会有影响。</p>
+</li>
+</ul>
+<h4 id="java异常处理机制"><a href="#java异常处理机制" class="headerlink" title="java异常处理机制"></a>java异常处理机制</h4><p>java语言把异常当作对象来处理，并定义了一个类（Throwable类）作为所有异常的父类，异常又分为两类，Error（错误）和Exception（异常）。</p>
+<ol>
+<li>Error便是程序出现了非常严重的错误，JVM会将程序终止。一个正确的程序应不存在Error。</li>
+<li>Exception表示可以修复的异常，是编译器可以捕捉到的，它包含两种类型：检查异常（checked exception）和运行时异常（runtime exception）：<ol>
+<li>检查异常：所有继承于Exception并且不是运行时异常的都是检查异常，可以用try-catch来捕获并处理异常（如连接数据库失败可重新连接解决）；</li>
+<li>运行时异常（不必处理）：在java中，最常见的运行时异常包括NullPointException（空指针异常）、ClassCastException(类型转换异常)、ArrayIndexOutOfBoundException(数组越界异常)、ArrayStoreException(数组存储异常)、BufferOverflowException（缓存溢出异常）、ArithmeticException(算数异常)。<em>出现异常后，系统会一直往上层抛出，直到遇到处理代码为之，若没有处理代码，则抛到最上层；如果是多线程就用Thread。run（）方法抛出，线程退出；如果是单线程，就用mian（）方法抛出，整个程序退出。</em></li>
+</ol>
+</li>
+</ol>
+<h4 id="throw与throws的比较"><a href="#throw与throws的比较" class="headerlink" title="throw与throws的比较"></a>throw与throws的比较</h4><ol>
+<li>throws出现在方法函数头；而throw出现在函数体。</li>
+<li>throws表示出现异常的一种可能性，并不一定会发生这些异常；throw则是抛出了异常，执行throw则一定抛出了某种异常对象。</li>
+<li>两者都是消极处理异常的方式，只是抛出或者可能抛出异常，但是不会由函数去处理异常，真正的处理异常由函数的上层调用处理。</li>
+</ol>
+<ul>
+<li><p>java中，输入和输出都被称为抽象的流，流可以被看作一组有序的字节集合，即数据在两设备之间传输。流的本质是数据的传输，根据处理数据类型的不同，流可以被分为两大类，<em>字节流和字符流</em>，字节流以字节（8bit）为单位，包含两个抽象类：输入流（InputStream）和输出流(OutputStrseam);字符流以字符（16bit）为单位，根据码表映射字符，一次可读多个字节，包含两个抽象类：Read（输入流）和Write（输出流）。<em>二者最主要的区别为：</em>字节流在处理输入输出时不会用到缓存，而字符流用到了缓存。</p>
+</li>
+<li><p>java IO类在设计时采用了Decorator（装饰者）设计模式。</p>
+</li>
+<li><p>JDK1.4的java.nio包中引入了新的Java-IO类库，目的是提高速度，实际上，旧的IO包也已经使用nio重新实现过，以便充分利用这种速度提高。速度的提高在文件IO和网络IO。速度的提高来自于所使用的结构更接近于操作系统执行IO的方式：通道和缓冲器。旧IO中有三个类被修改了，分别是FileInputStream、FileOutputStream和RandomAccessFile，在处理大量并发请求时，使用NIO要比使用Socket效率高很多。</p>
+</li>
+<li><p>java字节码执行分两种方式：即时编译与解释编译。即时编译指的是解释器先将字节码编译成机器码，然后再执行该机器码。解释执行方式指的是解释器通过每次解释并执行一小段代码来完成java字节码程序的所有操作。通常采用的是解释执行方式。</p>
+</li>
+<li><p>java平台主要包含两个模块：JVM与java API（Application Program Interface，应用程序接口）；</p>
+</li>
+<li><p>类的加载方式分为隐式加载与显式加载两种，隐式加载指的是程序在使用new关键字等方式创建对象时，会隐式的调用类的加载器把对应的类加载到JVM中。显式加载指的是通过直接调用class.forName（）方法来把所需要的类加载到JVM中。在程序启动时，只把需要的基础类类（如基类）加载到JVM中，其他类只有在被使用到的时候才会被加载，采用这种方法，可以加快加载速度和减少内存开销，所以每一个类对应一个.class文件，这些文件可以被看成一个个可以被动态加载的单元，因此只有部分类被修改时，只需要重新编译变化的类即可。</p>
+</li>
+</ul>
+<h4 id="类的加载步骤"><a href="#类的加载步骤" class="headerlink" title="类的加载步骤"></a>类的加载步骤</h4><ol>
+<li>装载：根据查找路径找到对应的class文件，然后导入。</li>
+<li>链接：链接又可分为三步：<br>1) 检查:检查待加载的class文件的正确性；<br>2) 准备：给类中的静态变量分配存储空间；<br>3) 解析：将符号引用（在编译时，java类并不知道所引用的类的实际地址，因此只能使用符号引用来代替）转换成直接引用；</li>
+<li>初始化：对静态变量和静态代码执行初始化工作；</li>
+</ol>
+<ul>
+<li><p>垃圾回收器（Garbage Collection，GC）是一个非常重要的概念，他的主要作用是回收程序中不再使用的内存。</p>
+</li>
+<li><p>只有当一个对象不再有任何引用指向它的时候才会成为垃圾等待GC的回收，但并不是立即回收，而是下一次垃圾回收器运行时才会被回收；</p>
+</li>
+<li><p>判断一个内存空间是否符合垃圾回收的标准有两个：给对象赋予了空值null，以后再没有使用过；给对象赋予了新值，重新分配了内存空间；</p>
+</li>
+<li><p>堆与栈是内存中存放数据的地方。基本数据类型的变量以及对象的引用变量，其内存都分配在栈上，变量除了作用域就会自动释放；引用类型的变量，其内存分配在堆中或者常量池，需要通过new等方式来创建；</p>
+</li>
+</ul>
 
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
-    <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#重载和覆盖的区别："><span class="toc-text">重载和覆盖的区别：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#小结"><span class="toc-text">小结:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#接口与抽象类："><span class="toc-text">接口与抽象类：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#小结："><span class="toc-text">小结：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#什么时候使用抽象类和接口？"><span class="toc-text">什么时候使用抽象类和接口？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#面向对象的主要特征包括抽象、继承、封装和多态："><span class="toc-text">面向对象的主要特征包括抽象、继承、封装和多态：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#继承有如下特点："><span class="toc-text">继承有如下特点：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多态的实现机制："><span class="toc-text">多态的实现机制：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#break、continue以及return的区别："><span class="toc-text">break、continue以及return的区别：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#final、finally和finalize的区别："><span class="toc-text">final、finally和finalize的区别：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Static关键字的作用"><span class="toc-text">Static关键字的作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#值传递与引用传递的区别"><span class="toc-text">值传递与引用传递的区别</span></a></li></ol>
+    <h2>Table of Content</h2>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#重载和覆盖的区别："><span class="toc-text">重载和覆盖的区别：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#小结"><span class="toc-text">小结:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#接口与抽象类："><span class="toc-text">接口与抽象类：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#小结："><span class="toc-text">小结：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#什么时候使用抽象类和接口？"><span class="toc-text">什么时候使用抽象类和接口？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#面向对象的主要特征包括抽象、继承、封装和多态："><span class="toc-text">面向对象的主要特征包括抽象、继承、封装和多态：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#继承有如下特点："><span class="toc-text">继承有如下特点：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多态的实现机制："><span class="toc-text">多态的实现机制：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#break、continue以及return的区别："><span class="toc-text">break、continue以及return的区别：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#final、finally和finalize的区别："><span class="toc-text">final、finally和finalize的区别：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Static关键字的作用"><span class="toc-text">Static关键字的作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#值传递与引用传递的区别"><span class="toc-text">值传递与引用传递的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#String、StringBuffer、StringBuilder和StringTokenized的区别"><span class="toc-text">String、StringBuffer、StringBuilder和StringTokenized的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#java异常处理机制"><span class="toc-text">java异常处理机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#throw与throws的比较"><span class="toc-text">throw与throws的比较</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类的加载步骤"><span class="toc-text">类的加载步骤</span></a></li></ol>
   </div>
 </div>
 
@@ -343,7 +407,7 @@
   
 
   
-    <a href="/2018/08/12/Linux常用命令/" class="next">下一篇 Linux常用命令 &rarr;</a>
+    <a href="/2018/08/12/Linux常用命令/" class="next">Next post Linux常用命令 &rarr;</a>
   
 </nav>
 
