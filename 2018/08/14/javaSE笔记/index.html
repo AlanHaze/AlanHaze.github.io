@@ -399,7 +399,8 @@
 <li>二维数组：</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span> arraryName[][];</span><br><span class="line"><span class="built_in">type</span>[][] arraryName;</span><br><span class="line"><span class="built_in">type</span>[] arraryName[];</span><br></pre></td></tr></table></figure>
-<p>1) 需要注意的是，在声明二维数组时，其中[]必须为空。<br>2) 也可用初始化列表的方式来进行初始化，一般形式为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type arraryName\[]\[] = &#123;&#123;c11,c12,c13..&#125;,&#123;c21,c22,c23...&#125;,&#123;c31,c32,c33...&#125;&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>1) 需要注意的是，在声明二维数组时，其中[]必须为空。<br>2) 也可用初始化列表的方式来进行初始化，一般形式为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type arraryName[][] = &#123;&#123;c11,c12,c13..&#125;,&#123;c21,c22,c23...&#125;,&#123;c31,c32,c33...&#125;&#125;;</span><br></pre></td></tr></table></figure>
 <p>也可通过new关键字来给数组申请存储空间：type arrayName[][]=[行数][列数]；<br>3) 二维数组第二维的长度可以不同，假如要定义一个有两行的二维数组，第一行有两列，第二行有三列，定义方法如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int [][] arr = &#123;&#123;1,2&#125;,&#123;3,4,5&#125;&#125;; //第一种方式</span><br><span class="line">int[][] a = new int[2][]; //第二种方式</span><br><span class="line">a[0] = new int []&#123;1,2&#125;;</span><br><span class="line">a[1] = new int []&#123;3,4,5&#125;;</span><br></pre></td></tr></table></figure>
 <p>对二维数组的访问也是通过以下方式来完成，一般形式为arryName[行号][列号],遍历方式：</p>
