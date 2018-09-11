@@ -44,6 +44,15 @@
 <body>
 <div class="side-navigate hide-area">
   
+    <div class="item prev">
+      <a href="/2018/08/25/MySql笔记 /">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        MySql笔记
+      </div>
+    </div>
+  
   
     <div class="item next">
       <a href="/2018/08/12/Linux常用命令/">
@@ -129,7 +138,7 @@
     <p class="page-title-sub">
       <span id = "post-title-date">Created at 2018-08-14</span>
       
-        <span id = "post-title-updated">Updated at 2018-09-03</span>
+        <span id = "post-title-updated">Updated at 2018-09-04</span>
       
       
       
@@ -420,7 +429,75 @@
 <li>从堆和栈的功能和作用来比较，堆主要是用来存放对象的，栈主要是用来执行程序的。<em>相较于堆，栈的存取速度更快</em>，但栈的大小和生存周期必须是确定的，因此缺乏灵活性。而堆却可以在运行时动态分配内存，生命生存期不用提前告诉编译器，但这也导致了其存储速度的缓慢；</li>
 <li>在栈中存储的数据会通过压栈和弹栈操作在栈中回收，堆中的对象由垃圾回收器自动回收；</li>
 </ol>
-<h4 id="JavaCollections"><a href="#JavaCollections" class="headerlink" title="JavaCollections"></a>JavaCollections</h4><p>Java Collections框架包含了大量集合接口以及这些接口的实现类和操作他们的算法（例如排序、查找、反转、替换、复制、取最小元素、取最大元素等），具体而言，主要提供了List（列表）、Queue（队列）、Set（集合）、Stack（栈）和Map（映射表，用于存放键值对）等数据结构。<em>其中List、Queue、Set、Stack</em>都继承自Collection接口；<br><img src="http://wx3.sinaimg.cn/large/ace57effgy1fuwkberiytj210l0pab2a.jpg" alt="1"><br><img src="http://wx3.sinaimg.cn/large/ace57effgy1fuwkbh9ce3j20vt0lohdt.jpg" alt="2"></p>
+<h4 id="JavaCollections"><a href="#JavaCollections" class="headerlink" title="JavaCollections"></a>JavaCollections</h4><p>Java Collections框架包含了大量集合接口以及这些接口的实现类和操作他们的算法（例如排序、查找、反转、替换、复制、取最小元素、取最大元素等），具体而言，主要提供了List（列表）、Queue（队列）、Set（集合）、Stack（栈）和Map（映射表，用于存放键值对）等数据结构。<em>其中List、Queue、Set、Stack</em>都继承自Collection接口；<br><img src="http://wx3.sinaimg.cn/large/ace57effgy1fuwkberiytj210l0pab2a.jpg" alt="Collection接口"><br><img src="http://wx3.sinaimg.cn/large/ace57effgy1fuwkbh9ce3j20vt0lohdt.jpg" alt="Map接口"></p>
+<ol>
+<li>Set表示数学意义上的集合概念，其主要的是集合中的元素不能重复，一次放入Set中的每个元素都必需定义equals（）方法来确保对象的唯一性。有两个实现类，TreeSet（实现了SortSet接口，有序的），HashSet；</li>
+<li>List又称为有序的Collection。它按照对象的进入顺序保存对象，可以保存重复的对象；实现类：ArrayList，Vector，LinkedList；</li>
+<li>Map提供一个从键映射到值的数据结构。它用于保存键值对，其中值可以重复，但键是唯一的。实现类：HashMap，LinkedHashMap，TreeMap</li>
+</ol>
+<ul>
+<li><p>Iterator是一个对象，它的工作就是遍历并选择序列中的对象。用法是使用容器的iterator（）方法返回一个Iterator，然后通过Iterator的next（）方法返回第一个元素；hasNext（）方法判断是否还有下一个元素；remove（）方法删除迭代器返回的元素；</p>
+</li>
+<li><p>使用Iterator时出现ConcurrentModificationException是因为改变了容器中的元素数量，导致该异常，解决方法是将遍历过程中要删除的元素保存到一个集合中，等便利结束后再调用removeAll（）方法,或者使用itera.remove()方法；如在多线程环境下可以使用线程安全的容器（如ConcurrentHashMap和CopyOnWriteArrayList等）来替代非线程安全的容器；</p>
+</li>
+<li><p>Iterator只能正向遍历集合，适用于获取移除元素，针对于List，有ListIterator继承自Iterator，可以从两个方向来遍历List，同时支持元素的修改。</p>
+</li>
+</ul>
+<h4 id="ArrayList、Vector、LinkedList"><a href="#ArrayList、Vector、LinkedList" class="headerlink" title="ArrayList、Vector、LinkedList"></a>ArrayList、Vector、LinkedList</h4><p>ArrayList、Vector、LinkedList均在java.util包中，均为可伸缩数组，即可以动态改变长度的数组；</p>
+<ol>
+<li>ArrayList和Vector都是基于存储元素的Object[] array来实现的，他们会在内存中开辟一块连续的空间来存储，正是因为数据存储是连续的，所以他们支持<em>用序号来访问元素，同时索引速度比较快，插入较慢</em>，因为需要将后面的元素全部移位；</li>
+<li>LinkedList是采用双向列表来实现的，对数据的索引需要从列表头开始遍历，<em>因此对随机访问效率比较低，插入效率高</em>，因为不需要移动元素；</li>
+</ol>
+<h4 id="HashMap、HashTable、TreeMap、WeakHashMap"><a href="#HashMap、HashTable、TreeMap、WeakHashMap" class="headerlink" title="HashMap、HashTable、TreeMap、WeakHashMap"></a>HashMap、HashTable、TreeMap、WeakHashMap</h4><p>java中为数据结构中的映射定义了一个接口java.util.Map,它包括了3个实现类：HashMap、TreeMap、HashTable。Map用来存储键值对的数据结构，用来做索引的对象叫做Key，其对应的对象叫做Value；</p>
+<ol>
+<li>HashMap是HashTable的轻量级实现（非线程安全），他们都实现了Map接口，主要区别在于HashMap允许空键值（只允许一条存在），而HashTable不允许；</li>
+<li>HashMap把HashTable的contains方法去掉了，改成了containsValue和containsKey；</li>
+<li>HashTable的方法是线程安全的，而HashMap不是。就效率而言，HashMap可能高于HashTable。</li>
+<li>HashMap使用Enumeration，HashMap使用Iterator；</li>
+<li>hash值的使用不同，HashTable直接使用对象的hashcode；</li>
+<li>一般来说，在Map中插入、删除和定位元素最好使用HashMap。由于TreeMap实现了SortMap接口，能够吧它保存的记录根据键排序，因此取出来后是排序后的键值对。如果需要按照自然排序和自定义排序用TreeMap更好；</li>
+<li>LinkedHashMap是HashMap的子类，如果需要输出的顺讯和输入的顺序相同，那么用LinkedHashMap可以实现，还可以按读取顺序来排列；</li>
+<li>WeakHashMap与HashMap类似，，不同之处在于其为弱引用方式，只要其中的Key不再被外界引用，他就会被垃圾回收器回收；而HashMap的Key是采用“强引用”方式，当HashMap中的Key没有被外界引用时，只有在这个Key从HashMap中删除后，才可以被垃圾回收器回收；</li>
+<li>HashMap的同步可以通过Map m = Collection.synchronizedMap(new HashMap())来达到同步的效果；</li>
+<li>向HashMap中添加Key时会调用hashCode（）生成一个hash值，如存在再比对equals（），如返回ture就覆盖，如返回false就添加；</li>
+<li>如向HashMap中添加自定义类作为Key必须重写hashCode（）和equals（）！</li>
+<li>从HashMap的工作原理可以看出，如果两个对象相等，那么这两个对象有着相同的hashCode，反之则不然；</li>
+</ol>
+<ul>
+<li><p>Collection是一个集合接口，Collections是针对集合类的一个包装类；前者提供了为集合对象进行基本操作的通用接口方法。后者提供了一些列静态方法以实现对各种集合的搜索、排序、线程安全化等操作，其中绝大多数方法都是用来处理线性表，其不能被实例化，如同一个工具类，服务于Collection框架；</p>
+</li>
+<li><p>线程是指程序在执行过程中，能够执行代码的一个执行单元，有4种状态：运行、就绪、挂起和结束；</p>
+</li>
+<li><p>进程是指一段正在运行的程序，有事也被成为轻量级进程，它是程序执行的最小单元，<em>一个进程可以拥有多个线程，各个线程之间共享程序的内存空间（代码段、数据段和堆空间）以及一些进程级资源（如打开的文件）</em>，但是各个线程拥有自己的栈空间；</p>
+</li>
+<li><p>同步就是你喊我去吃饭，我如果听到了就和你去吃饭，如果我没有听到，你就不停地喊，直到我告诉你听到了，我们才一起去吃饭；异步就是你喊我，然后自己去吃饭，我听到后可能会立马起身跟你一起去，也有可能等到下班再去吃饭；</p>
+</li>
+</ul>
+<h4 id="实现java多线程的方式"><a href="#实现java多线程的方式" class="headerlink" title="实现java多线程的方式"></a>实现java多线程的方式</h4><ol>
+<li>继承Thread类，重写Run方法；Thread本质上也是实现了Runable接口的一个实例，它代表一个线程的实例，并且，启动线程的唯一方法就是通过Thread类的start（）方法，它将启动一个新线程，并执行run（）方法体中的代码。需要注意的是，调用start（）后并不是立即启动该线程，而是将该线程变为可运行状态（Runable），什么时候运行多线程代码是由操作系统决定的；</li>
+<li>实现Runable接口，并实现该接口的run（）方法；启动线程时，依旧是创建Thread对象，用实现了Runable接口的对象作为参数实例化该Thread对象，再调用Thread的start（）方法； 其实，无论以上两种那种方法，都是通过Thread的对象的API来控制线程的；</li>
+<li>实现Callable接口，重写call（）方法；Callable接口实际属于Executor框架中的功能类，Callable接口与Runable接口的功能类似，但提供了比Runable更强大的功能，一是主要是能够在任务结束后提供一个返回值，其他没有；二是call（）方法可以抛出异常，run（）方法不能；</li>
+<li>一般实现多线程推荐实现Runable接口，很多开发人员认为<em>一个类仅在需要被加强或者修改时才会被继承</em>。因此，如果没有必要重写Thread类中的其他方法（Thread中提供了许多方法可以被子类使用或者重写），最好使用实现Runable接口的方式创建线程；</li>
+</ol>
+<ul>
+<li>系统通过调用线程类的start（）方法启动一个线程，此时线程就处于就绪状态，意味着可供JVM来调度运行，调度过程中，JVM通过调用线程类的run()方法来完成实际操作；只调用run（）方法是不行的，依旧是单线程；</li>
+</ul>
+<h4 id="多线程同步"><a href="#多线程同步" class="headerlink" title="多线程同步"></a>多线程同步</h4><ol>
+<li>synchronized关键字；再java中每个对象都有一个对象锁与之相关联，该锁表明对象在任何时候只允许被一个线程所拥有，但一个线程调用对象的一段synchronized代码时，需要先获取这个锁，然后去执行相应代码，执行结束后，释放锁；synchronized关键字有两种用法一个是synchronized方法（在方法的声明前加入synchronized关键字）和synchronized代码块（synchronized后跟大括号，其中为需要同步的代码块），前者有一弊病，当方法规模非常庞大时，会大大影响程序的运行效率，所以最好还是使用synchronized代码块；</li>
+<li>wait()、notify（）方法；它们是Object的本地final方法，无法被重写。在synchronized代码被执行期间，wait表示线程的等待，调用该方法会导致线程阻塞，直至另一线程调用notify或notifyAll方法才可令其继续执行；</li>
+<li>从java5开始，可以使用Lock机制取代synchronized 代码块和synchronized 方法。以及使用Condition接口对象的await,signal,signalAll方法取代Object类中的wait,notify,notifyAll方法；e.g<br><img src="http://wx4.sinaimg.cn/large/ace57effgy1fuxoiyp3j0j20h70ikdjn.jpg" alt="生产者模型"><br><img src="http://wx4.sinaimg.cn/large/ace57effgy1fuxoiz4y31j20ho0e7jtf.jpg" alt="消费者模型"></li>
+</ol>
+<ul>
+<li>sleep（）是使线程暂停一段时间的方法；他与wait（）的区别一是线程用来控制自身流程的，他会使此线程暂停一段时间，吧执行机会让给其他线程，等到计时时间到，此线程会自动“苏醒”，不用等待其他线程调用notify（）方法来唤醒；二是sleep（）方法不会释放锁，wait（）方法会释放锁；三是sleep（）可以在任何地方使用，不用非要在synchronized代码块中使用；四是sleep（）必须捕获异常；五是容易导致死锁，所以<em>一般情况下不推荐使用sleep（）方法</em>；且睡眠时间到了之后不是立即回到运行状态，而是可运行状态；</li>
+</ul>
+<h4 id="synchronized和Lock的异同"><a href="#synchronized和Lock的异同" class="headerlink" title="synchronized和Lock的异同"></a>synchronized和Lock的异同</h4><ol>
+<li>用法不一样；synchronized加在方法上或者特定代码块上，托管给JVM执行的；而Lock需要显式指定起始位置和终止位置，且是通过代码实现的，有比synchronized更加精确的线程语义；</li>
+<li>性能不一样；在java5增加了一个Lock接口的实现类ReentrantLock，他和synchronized在不同的情况下会有不同的表现。在竞争不激烈的情况下，synchronized性能会优于ReentrantLock，但在竞争激烈的情况下，synchronized性能会急剧下降，而ReentrantLock的性能基本保持不变；</li>
+<li>锁机制不一样；synchronized获得锁和释放锁都在块结构中，当获取多个锁时，必须以相反的顺序释放，并且是自动解锁，不会因为出现异常而出现死锁。而Lock需要开发人员手动释放，并且必须在finally中释放，否则死锁；</li>
+</ol>
+<ul>
+<li>当一个线程进入一个对像的synchronized方法后，其他线程是可以进入同一对象非synchronized方法的，也可以调用static修饰的synchronized方法（他的锁是当前类的字节码，非static的是this）；如果这个对象内部调用了wait（）方法，那么其他线程可以访问同一对象的其他synchronized方法。如果这个对象没有使用wait（）方法，并且其他方法都为synchronized（）方法，那么其他线程就无法访问；</li>
+</ul>
 
   </article>
   <div class="random-toc-area">
@@ -428,12 +505,14 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#重载和覆盖的区别："><span class="toc-text">重载和覆盖的区别：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#小结"><span class="toc-text">小结:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#接口与抽象类："><span class="toc-text">接口与抽象类：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#小结："><span class="toc-text">小结：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#什么时候使用抽象类和接口？"><span class="toc-text">什么时候使用抽象类和接口？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#面向对象的主要特征包括抽象、继承、封装和多态："><span class="toc-text">面向对象的主要特征包括抽象、继承、封装和多态：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#继承有如下特点："><span class="toc-text">继承有如下特点：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多态的实现机制："><span class="toc-text">多态的实现机制：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#break、continue以及return的区别："><span class="toc-text">break、continue以及return的区别：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#final、finally和finalize的区别："><span class="toc-text">final、finally和finalize的区别：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Static关键字的作用"><span class="toc-text">Static关键字的作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#值传递与引用传递的区别"><span class="toc-text">值传递与引用传递的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#String、StringBuffer、StringBuilder和StringTokenized的区别"><span class="toc-text">String、StringBuffer、StringBuilder和StringTokenized的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#java异常处理机制"><span class="toc-text">java异常处理机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#throw与throws的比较"><span class="toc-text">throw与throws的比较</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类的加载步骤"><span class="toc-text">类的加载步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一维数组和二维数组"><span class="toc-text">一维数组和二维数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内存泄漏"><span class="toc-text">内存泄漏</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#堆和栈的区别"><span class="toc-text">堆和栈的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JavaCollections"><span class="toc-text">JavaCollections</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#重载和覆盖的区别："><span class="toc-text">重载和覆盖的区别：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#小结"><span class="toc-text">小结:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#接口与抽象类："><span class="toc-text">接口与抽象类：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#小结："><span class="toc-text">小结：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#什么时候使用抽象类和接口？"><span class="toc-text">什么时候使用抽象类和接口？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#面向对象的主要特征包括抽象、继承、封装和多态："><span class="toc-text">面向对象的主要特征包括抽象、继承、封装和多态：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#继承有如下特点："><span class="toc-text">继承有如下特点：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多态的实现机制："><span class="toc-text">多态的实现机制：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#break、continue以及return的区别："><span class="toc-text">break、continue以及return的区别：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#final、finally和finalize的区别："><span class="toc-text">final、finally和finalize的区别：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Static关键字的作用"><span class="toc-text">Static关键字的作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#值传递与引用传递的区别"><span class="toc-text">值传递与引用传递的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#String、StringBuffer、StringBuilder和StringTokenized的区别"><span class="toc-text">String、StringBuffer、StringBuilder和StringTokenized的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#java异常处理机制"><span class="toc-text">java异常处理机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#throw与throws的比较"><span class="toc-text">throw与throws的比较</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类的加载步骤"><span class="toc-text">类的加载步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一维数组和二维数组"><span class="toc-text">一维数组和二维数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内存泄漏"><span class="toc-text">内存泄漏</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#堆和栈的区别"><span class="toc-text">堆和栈的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JavaCollections"><span class="toc-text">JavaCollections</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ArrayList、Vector、LinkedList"><span class="toc-text">ArrayList、Vector、LinkedList</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HashMap、HashTable、TreeMap、WeakHashMap"><span class="toc-text">HashMap、HashTable、TreeMap、WeakHashMap</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实现java多线程的方式"><span class="toc-text">实现java多线程的方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多线程同步"><span class="toc-text">多线程同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#synchronized和Lock的异同"><span class="toc-text">synchronized和Lock的异同</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
+  
+    <a href="/2018/08/25/MySql笔记 /" class="prev">&larr; Prev post MySql笔记</a>
   
 
   
